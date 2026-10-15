@@ -1,0 +1,111 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+struct Node {
+    int id, burst, rem, ct;
+    Node* next;
+};
+
+Node *front = NULL, *rear = NULL;
+
+void enqueue(Node* p) {
+    p->next = NULL;
+    if (rear == NULL)
+        front = rear = p;
+    else {
+        rear->next = p;
+        rear = p;
+    }
+}
+
+Node* dequeue() {
+    if (front == NULL) return NULL;
+    Node* p = front;
+    front = front->next;
+    if (front == NULL) rear = NULL;
+    return p;
+}
+
+int main() {
+    int n, q, time = 0;
+    float totalWT = 0, totalTAT = 0;
+    Node *done = NULL, *tail = NULL;
+
+    cout << "Enter number of processes: ";
+    cin >> n;
+    cout << "Enter Time Quantum: ";
+    cin >> q;
+
+    if (n <= 0 || q <= 0) {
+        cout << "Invalid input!";
+        return 0;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        Node* p = new Node;
+        p->id = i;
+        cout << "Burst Time for P" << i << ": ";
+        cin >> p->burst;
+
+        if (p->burst <= 0) {
+            cout << "Invalid Burst Time!";
+            delete p;
+            while (front != NULL) delete dequeue();
+            return 0;
+        }
+
+        p->rem = p->burst;
+        enqueue(p);
+    }
+
+    while (front != NULL) {
+        Node* p = dequeue();
+
+        if (p->rem > q) {
+            time += q;
+            p->rem -= q;
+            enqueue(p);
+        } else {
+            time += p->rem;
+            p->rem = 0;
+            p->ct = time;
+            p->next = NULL;
+
+            if (done == NULL)
+                done = tail = p;
+            else {
+                tail->next = p;
+                tail = p;
+            }
+        }
+    }
+
+    cout << "\nProcess BT CT TAT WT\n";
+    Node* p = done;
+
+    while (p != NULL) {
+        int tat = p->ct;
+        int wt = tat - p->burst;
+        totalTAT += tat;
+        totalWT += wt;
+
+        cout << "P" << p->id << "     "
+             << p->burst << "  " << p->ct
+             << "  " << tat << "  " << wt << endl;
+        p = p->next;
+    }
+
+    cout << fixed << setprecision(2);
+    cout << "\nAverage Waiting Time = " << totalWT / n;
+    cout << "\nAverage Turnaround Time = " << totalTAT / n;
+
+    while (done != NULL) {
+        Node* temp = done;
+        done = done->next;
+        delete temp;
+    }
+
+    cout << "\nScheduling Completed!";
+    return 0;
+}
