@@ -1,5 +1,10 @@
 Branch Database Management Using Two BSTs
 
+
+Problem Statement 
+
+Develop a branch database management application using two BSTs. Identify common keys and merge the records into a single BST.
+
 Project Overview
 
 This project implements a Branch Database Management Application using two Binary Search Trees (BSTs) in C++. It identifies common keys between two BSTs and merges their records into a single BST without duplicating keys.
