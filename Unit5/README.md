@@ -4,12 +4,6 @@ Railway Signaling Network Using Prim's Algorithm
 
 Develop a railway signaling network consisting of different stations and possible cable connections with installation costs. Apply Prim's Algorithm to determine the Minimum Spanning Tree and calculate the minimum total installation cost required to connect all stations.
 
-Project Overview
-
-This project develops a Railway Signaling Network using Prim's Algorithm. The railway stations are represented as vertices, and the possible cable connections between stations are represented as edges.
-
-Each cable connection has an installation cost. Prim's Algorithm is used to find the Minimum Spanning Tree (MST), which connects all stations with the minimum total installation cost.
-
 Objectives
 
 - To represent a railway signaling network using a graph.
@@ -17,13 +11,6 @@ Objectives
 - To implement Prim's Algorithm using C++.
 - To find the minimum cost required to connect all railway stations.
 - To reduce the total cable installation cost.
-
-Technologies Used
-
-- Programming Language: C++
-- Algorithm: Prim's Algorithm
-- Data Structure: Graph
-- Compiler: GCC / Online C++ Compiler
 
 Working
 
